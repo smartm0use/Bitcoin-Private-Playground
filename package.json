@@ -1,0 +1,15 @@
+{
+  "name": "testnet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "testnet.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "smartmouse",
+  "license": "ISC",
+  "dependencies": {
+    "bitcoinjs-lib": "^3.3.2",
+    "require": "^2.4.20"
+  }
+}
