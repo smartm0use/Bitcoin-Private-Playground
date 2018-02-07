@@ -21,7 +21,7 @@ let tx = new Btc.TransactionBuilder(TestNet);
 let amountWeHave = 100000000; // 1.0 BTC
 let amountToKeep = 90000000; // 0.9 BTC
 let transactionFee = 1000; // 0.0001 BTC
-let amountToSend = amountWeHave - amountToKeep - transactionFee; // ~0.1 (0.9999)
+let amountToSend = amountWeHave - amountToKeep - transactionFee; // ~0.1 (0.0999)
 
 tx.addInput('f1ab15322553e82a54273fe14d38163113fed62e0904d9386dc320bc6a8fb4f3', 0);
 
