@@ -34,10 +34,9 @@ let tx_hex = tx.build().toHex();
 console.log('our beautiful transaction: ', tx_hex);
 
 proxiedRequest.post({
-    headers: {'content-type' : 'application/x-www-form-urlencoded'},
-    url:     'http://testnet.blockexplorer.com/api/tx/push',
-    body:    tx_hex
-}, (error, response, body) => {
-    console.log('error', error);
-    console.log('body', body);
-});
+    url:'https://testnet.blockexplorer.com/api/tx/send',
+    form: {rawtx: tx_hex}
+    }, (error, httpResponse, body) => {
+        console.log('error', error);
+        console.log('body', body);
+    });
