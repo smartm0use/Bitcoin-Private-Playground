@@ -10,22 +10,25 @@ let publicKey = ourWallet.getAddress();
 console.log("ourWallet public key:", publicKey);
 
 // log transactions
-proxiedRequest.get(apiUrl + publicKey, (err, req, body) => {
+proxiedRequest.get(apiUrl + publicKey + '/utxo', (err, req, body) => {
     // console.log(JSON.parse(body));
     let response = JSON.parse(body);
-    console.log('Transactions: ', response['transactions']);
+    console.log('Unspent transactions: ', response);
 });
 
 let tx = new Btc.TransactionBuilder(TestNet);
 
-let amountWeHave = 100000000; // 1.0 BTC
-let amountToKeep = 90000000; // 0.9 BTC
+let amountWeHave = 90000000; // 1.0 BTC
+let amountToKeep = 50000000; // 0.9 BTC
 let transactionFee = 1000; // 0.0001 BTC
 let amountToSend = amountWeHave - amountToKeep - transactionFee; // ~0.1 (0.0999)
 
-tx.addInput('f1ab15322553e82a54273fe14d38163113fed62e0904d9386dc320bc6a8fb4f3', 0);
+tx.addInput('0448149fad220e7a9b9d223d8cc2e2f8c4bbf547278f3311169b9715758c83d9', 0);
 
-tx.addOutput('mkrw59j2wERjWhq5NGKbnrgkvMrp1TzkWT', amountToSend);
+// Address Bitcoin Core: mpns2b5a74asdiQP9wdx7bLmgqastegu3W
+// Address Copay: mkrw59j2wERjWhq5NGKbnrgkvMrp1TzkWT
+
+tx.addOutput('mpns2b5a74asdiQP9wdx7bLmgqastegu3W', amountToSend);
 tx.addOutput(publicKey, amountToKeep);
 tx.sign(0, ourWallet);
 
@@ -36,7 +39,7 @@ console.log('our beautiful transaction: ', tx_hex);
 proxiedRequest.post({
     url:'https://testnet.blockexplorer.com/api/tx/send',
     form: {rawtx: tx_hex}
-    }, (error, httpResponse, body) => {
-        console.log('error', error);
-        console.log('body', body);
-    });
+}, (error, httpResponse, body) => {
+    console.log('error', error);
+    console.log('body', body);
+});
